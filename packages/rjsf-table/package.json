@@ -5,11 +5,15 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rimraf dist && rollup -c --bundleConfigAsCjs",
+    "build": "rollup -c --bundleConfigAsCjs",
     "dev": "rollup -c --bundleConfigAsCjs --watch"
   },
   "author": "JinYuSha0",
   "license": "ISC",
+  "files": [
+    "src",
+    "dist"
+  ],
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/modifiers": "^9.0.0",
@@ -30,7 +34,6 @@
   "devDependencies": {
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "rimraf": "^6.0.1",
     "rollup": "^4.28.1",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.7.2"

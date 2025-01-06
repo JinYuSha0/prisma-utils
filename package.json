@@ -9,8 +9,7 @@
     "dev:playground": "pnpm -r --filter playground run dev",
     "build": "pnpm build:packages",
     "build:packages": "pnpm -r --filter !playground run build",
-    "build:playground": "pnpm -r --filter playground run build",
-    "publish": "pnpm publish -r"
+    "build:playground": "pnpm -r --filter playground run build"
   },
   "keywords": [
     "prisma",
