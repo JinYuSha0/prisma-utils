@@ -1,0 +1,50 @@
+{
+  "name": "prisma-nest-dto",
+  "description": "A tool to convert prisma schema to nest dto",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "pnd": "dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dto": {
+      "types": "./dto.d.ts",
+      "require": "./dto.js",
+      "import": "./dto.js",
+      "default": "./dto.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "rimraf dist && rollup -c --bundleConfigAsCjs",
+    "dev": "rollup -c --bundleConfigAsCjs --watch"
+  },
+  "author": "JinYuSha0",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/generator": "^7.26.3",
+    "@mrleebo/prisma-ast": "^0.12.0",
+    "commander": "^13.0.0"
+  },
+  "devDependencies": {
+    "@babel/types": "^7.26.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@types/babel__core": "^7",
+    "@types/babel__generator": "^7",
+    "@types/babel__helper-module-imports": "^7",
+    "@types/json-schema": "^7.0.15",
+    "@types/node": "^22.10.5",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.28.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.7.2"
+  }
+}

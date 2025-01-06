@@ -1,0 +1,27 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.form {
+  position: relative;
+  color: #333333;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  overflow-y: scroll;
+}
+
+.form-body {
+  width: 600px;
+  padding: 32px;
+}
+
+.github {
+  width: 32px;
+  height: 32px;
+  position: fixed;
+  bottom: 16px;
+  right: 24px;
+}

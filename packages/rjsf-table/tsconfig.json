@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "rootDirs": ["./src"],
+    "baseUrl": "./src",
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "sourceMap": true,
+    "allowJs": true,
+    "moduleResolution": "bundler",
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": false,
+    "noImplicitThis": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "noUnusedLocals": false,
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "declarationDir": "dist/types",
+    "types": ["react", "react-dom"]
+  },
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    "test",
+    "__test__",
+    "**/__test__/**/*",
+    "**/*spec.ts",
+    "**/*it.ts",
+    "**/*test.ts",
+    "**/*e2e.ts",
+    "**/*e2e-spec.ts"
+  ]
+}

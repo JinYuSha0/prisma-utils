@@ -1,0 +1,49 @@
+{
+  "name": "prisma-schema-form",
+  "description": "A tool to convert prisma schema to json schema-form",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "bin": {
+    "psf": "dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./schema": {
+      "default": "./generate/schema.js",
+      "types": "./generate/schema.d.ts"
+    },
+    "./utils": {
+      "default": "./dist/utils.js",
+      "types": "./dist/utils.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "rimraf dist && rollup -c --bundleConfigAsCjs",
+    "dev": "rollup -c --bundleConfigAsCjs --watch"
+  },
+  "author": "JinYuSha0",
+  "license": "ISC",
+  "dependencies": {
+    "@mrleebo/prisma-ast": "^0.12.0",
+    "@rjsf/utils": "^5.23.1",
+    "commander": "^12.1.0",
+    "es-toolkit": "^1.29.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
+    "@types/json-schema": "^7.0.15",
+    "@types/node": "^22.10.1",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.28.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.7.2"
+  }
+}
