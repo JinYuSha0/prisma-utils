@@ -1,6 +1,6 @@
 {
   "name": "prisma-nest-dto",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A tool to convert prisma schema to nest dto",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
