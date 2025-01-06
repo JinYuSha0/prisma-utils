@@ -29,6 +29,15 @@
   },
   "author": "JinYuSha0",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JinYuSha0/prisma-utils",
+    "directory": "packages/prisma-nest-dto"
+  },
+  "bugs": {
+    "url": "https://github.com/JinYuSha0/prisma-utils/issues"
+  },
+  "homepage": "https://github.com/JinYuSha0/prisma-utils",
   "dependencies": {
     "@babel/core": "^7.26.0",
     "@babel/generator": "^7.26.3",

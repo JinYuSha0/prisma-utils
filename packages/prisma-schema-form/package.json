@@ -32,6 +32,15 @@
   },
   "author": "JinYuSha0",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JinYuSha0/prisma-utils",
+    "directory": "packages/prisma-schema-form"
+  },
+  "bugs": {
+    "url": "https://github.com/JinYuSha0/prisma-utils/issues"
+  },
+  "homepage": "https://github.com/JinYuSha0/prisma-utils",
   "dependencies": {
     "@mrleebo/prisma-ast": "^0.12.0",
     "@rjsf/utils": "^5.23.1",
