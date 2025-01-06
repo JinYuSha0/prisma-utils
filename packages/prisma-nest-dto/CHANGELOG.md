@@ -1,5 +1,11 @@
 # prisma-nest-dto
 
+## 0.1.2
+
+### Patch Changes
+
+- 3dd7321: add publishConfig
+
 ## 0.1.1
 
 ### Patch Changes
