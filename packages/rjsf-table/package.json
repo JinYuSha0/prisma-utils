@@ -1,5 +1,6 @@
 {
   "name": "rjsf-table",
+  "version": "0.0.10",
   "description": "A table component of react-json-schema",
   "main": "dist/index.js",
   "module": "dist/index.mjs",

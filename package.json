@@ -1,8 +1,7 @@
 {
   "name": "prisma-utils",
   "private": true,
-  "version": "0.0.1",
-  "main": "index.js",
+  "version": "0.0.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"pnpm dev:packages\" \"pnpm dev:playground\"",
@@ -10,7 +9,9 @@
     "dev:playground": "pnpm -r --filter playground run dev",
     "build": "pnpm build:packages",
     "build:packages": "pnpm -r --filter !playground run build",
-    "build:playground": "pnpm -r --filter playground run build"
+    "build:playground": "pnpm -r --filter playground run build",
+    "ci:version": "changeset version",
+    "ci:publish": "pnpm publish -r"
   },
   "keywords": [
     "prisma",
@@ -26,6 +27,7 @@
     "@types/react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.11",
     "concurrently": "^9.1.2"
   }
 }
