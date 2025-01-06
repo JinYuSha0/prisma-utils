@@ -41,6 +41,10 @@
     "url": "https://github.com/JinYuSha0/prisma-utils/issues"
   },
   "homepage": "https://github.com/JinYuSha0/prisma-utils",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "dependencies": {
     "@mrleebo/prisma-ast": "^0.12.0",
     "@rjsf/utils": "^5.23.1",
