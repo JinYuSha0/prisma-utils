@@ -3,7 +3,7 @@ import "../styles/ResizableLayout.css";
 import "../styles/SampleSplitter.css";
 import type { RJSFSchema, UiSchema } from "@rjsf/utils";
 import type { JSONSchema7 } from "json-schema";
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Editor from "@monaco-editor/react";
 import Form from "@rjsf/mui";
 import validator from "@rjsf/validator-ajv8";

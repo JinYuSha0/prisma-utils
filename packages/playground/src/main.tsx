@@ -1,12 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createHashRouter, RouterProvider } from "react-router-dom";
 import PrismaSchemaForm from "./pages/PrismaSchemaForm.tsx";
 import PrismaNestDto from "./pages/PrismaNestDto.tsx";
 import Layout from "./layout.tsx";
 import RjsfTable from "./pages/RjsfTable.tsx";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <Layout />,
