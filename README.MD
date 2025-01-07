@@ -1,5 +1,7 @@
 <h1 align="center">PRISMA-UTILS</h1>
 
+<div align="center">A series of low-code tools based on <a target="_blank" href="https://github.com/prisma/prisma">prisma</a> and <a target="_blank" href="https://github.com/rjsf-team/react-jsonschema-form">react-jsonschema-form</a></div>
+
 ---
 
 ## Packages
