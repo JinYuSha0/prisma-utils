@@ -1,4 +1,4 @@
-RJSF-TABLE
+# RJSF-TABLE
 
 <div align="center">
 <a href="https://www.npmjs.com/package/rjsf-table"><img src="https://img.shields.io/npm/v/rjsf-table.svg" alt="NPM Version" /></a>
@@ -10,18 +10,22 @@ RJSF-TABLE
 
 ---
 
-# Screenshot
+## Screenshot
 
 ![rjsf-table](https://raw.githubusercontent.com/JinYuSha0/prisma-utils/main/packages/rjsf-table/screenshot/rjsf-table.gif)
 
-# How to install
+## Live Playground
+
+A [live playground](https://jinyusha0.github.io/#/rjsf-table) is hosted on GitHub Pages.
+
+## How to install
 
 ```base
 npm install rjsf-table
 yarn add rjsf-table
 ```
 
-# How to use
+## How to use
 
 ```javascript
 import React from "react";
