@@ -7,14 +7,9 @@ import ResizableLayout from "../components/ResizableLayout";
 import GithubSvg from "../assets/github-mark-white.svg";
 import { transform as transformToNestDto } from "prisma-nest-dto";
 import { initialPrismaSchema } from "../utils/const";
-import { useStorageState, StorageTypes } from "../hooks/use-storage.hook";
 
 function PrismaNestDto() {
-  const [prismaCode, setPrismaCode] = useStorageState<string>(
-    "prismaNestDto",
-    StorageTypes.Local,
-    () => initialPrismaSchema
-  );
+  const [prismaCode, setPrismaCode] = useState<string>(initialPrismaSchema);
   const [dtoCode, setDtoCode] = useState("");
   const onPrismaCodeChange = async (value: string | undefined) => {
     setPrismaCode(value ?? "");

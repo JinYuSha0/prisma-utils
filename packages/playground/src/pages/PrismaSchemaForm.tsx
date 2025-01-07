@@ -11,7 +11,6 @@ import ErrorBoundary from "../components/ErrorBoundary";
 import GithubSvg from "../assets/github-mark.svg";
 import { transform as transformToJsonSchema } from "prisma-schema-form";
 import { initialPrismaSchema } from "../utils/const";
-import { useStorageState, StorageTypes } from "../hooks/use-storage.hook";
 import {
   FormControl,
   InputLabel,
@@ -21,11 +20,7 @@ import {
 } from "@mui/material";
 
 function PrismaSchemaForm() {
-  const [prismaCode, setPrismaCode] = useStorageState<string>(
-    "prismaSchemaForm",
-    StorageTypes.Local,
-    () => initialPrismaSchema
-  );
+  const [prismaCode, setPrismaCode] = useState<string>(initialPrismaSchema);
   const [jsCode, setJsCode] = useState("");
   const [models, setModels] = useState<Record<string, RJSFSchema>>({});
   const [currModel, setCurrModel] = useState<string | null>(null);
