@@ -35,13 +35,13 @@ jobs:
         run: pnpm install
       - name: 检查changeset文件是否存在
         run: |
-        if [ -f ".changeset/rotten-avocados-compare.md" ]; then
-          echo "changeset文件存在提交pr"
-          echo "exists=true" >> $GITHUB_ENV
-        else
-          echo "changeset文件不存在构建发布"
-          echo "exists=false" >> $GITHUB_ENV
-        fi
+          if [ -f ".changeset/rotten-avocados-compare.md" ]; then
+            echo "changeset文件存在，提交pr"
+            echo "exists=true" >> $GITHUB_ENV
+          else
+            echo "changeset文件不存在，构建发布"
+            echo "exists=false" >> $GITHUB_ENV
+          fi
       - name: 构建项目
         if: env.exists == 'true'
         run: pnpm build
