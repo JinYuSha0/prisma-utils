@@ -10,6 +10,10 @@ jobs:
   version:
     timeout-minutes: 15
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+      packages: write
     steps:
       - name: checkout code repository
         uses: actions/checkout@v3
@@ -29,7 +33,17 @@ jobs:
         run: pnpm config set store-dir $PNPM_CACHE_FOLDER
       - name: 安装依赖
         run: pnpm install
+      - name: 检查changeset文件是否存在
+        run: |
+        if [ -f ".changeset/rotten-avocados-compare.md" ]; then
+          echo "changeset文件存在提交pr"
+          echo "exists=true" >> $GITHUB_ENV
+        else
+          echo "changeset文件不存在构建发布"
+          echo "exists=false" >> $GITHUB_ENV
+        fi
       - name: 构建项目
+        if: env.exists == 'true'
         run: pnpm build
       - name: 创建并发布版本
         uses: changesets/action@v1
