@@ -1,5 +1,11 @@
 # prisma-schema-form
 
+## 0.1.3
+
+### Patch Changes
+
+- 07472a0: add README
+
 ## 0.1.2
 
 ### Patch Changes
