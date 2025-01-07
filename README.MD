@@ -1,4 +1,4 @@
-# PRISMA-UTILS
+<h1 align="center">PRISMA-UTILS</h1>
 
 ---
 

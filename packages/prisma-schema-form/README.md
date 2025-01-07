@@ -1,4 +1,4 @@
-# PRISMA-SCHEMA-FORM
+<h1 align="center">PRISMA-SCHEMA-FORM</h1>
 
 <div align="center">
 <a href="https://www.npmjs.com/package/prisma-schema-form"><img src="https://img.shields.io/npm/v/prisma-schema-form.svg" alt="NPM Version" /></a>
@@ -6,7 +6,7 @@
 <a href="https://www.npmjs.com/package/prisma-schema-form"><img src="https://img.shields.io/npm/dm/prisma-schema-form.svg" alt="NPM Downloads" /></a>
 </div>
 
-<center>A tool to convert prisma schema to json schema-form</center>
+<div align="center">A tool to convert prisma schema to json schema-form</div>
 
 ---
 
@@ -93,12 +93,12 @@ const Advanced: React.FC<{}> = () => {
 
 ## Advanced usage method
 
-| method | description | params |
-| --- | --- | --- |
-| omit | omit a property |  condition: boolean, keys: string[] |
-| omitDeep | omit a deep property | condition: boolean, paths: string[] |
-| assign | modify a property | condition: boolean, value: Partial\<JSONSchemaValue\> \| (model: T) => Partial\<JSONSchemaValue\> |
-| assignDeep | modify a deep property | condition: boolean, key: string, value: Partial\<JSONSchemaValue\> \| (model: T) => Partial\<JSONSchemaValue\> |
-| appendBefore | append some property before specified property | condition: boolean, key: string, value: Record\<string, JSONSchemaValue\> |
-| appendAfter | append some property after specified property | condition: boolean, key: string, value: Record\<string, JSONSchemaValue\> |
-| build | returns the final schema | |
+| method       | description                                    | params                                                                                                         |
+| ------------ | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| omit         | omit a property                                | condition: boolean, keys: string[]                                                                             |
+| omitDeep     | omit a deep property                           | condition: boolean, paths: string[]                                                                            |
+| assign       | modify a property                              | condition: boolean, value: Partial\<JSONSchemaValue\> \| (model: T) => Partial\<JSONSchemaValue\>              |
+| assignDeep   | modify a deep property                         | condition: boolean, key: string, value: Partial\<JSONSchemaValue\> \| (model: T) => Partial\<JSONSchemaValue\> |
+| appendBefore | append some property before specified property | condition: boolean, key: string, value: Record\<string, JSONSchemaValue\>                                      |
+| appendAfter  | append some property after specified property  | condition: boolean, key: string, value: Record\<string, JSONSchemaValue\>                                      |
+| build        | returns the final schema                       |                                                                                                                |

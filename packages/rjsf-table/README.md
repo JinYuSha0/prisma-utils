@@ -1,4 +1,4 @@
-# RJSF-TABLE
+<h1 align="center">RJSF-TABLE</h1>
 
 <div align="center">
 <a href="https://www.npmjs.com/package/rjsf-table"><img src="https://img.shields.io/npm/v/rjsf-table.svg" alt="NPM Version" /></a>
@@ -6,7 +6,7 @@
 <a href="https://www.npmjs.com/package/rjsf-table"><img src="https://img.shields.io/npm/dm/rjsf-table.svg" alt="NPM Downloads" /></a>
 </div>
 
-<center>A table component of react-json-schema, use dialog to add or edit content, support sorting</center>
+<div align="center">A table component of react-json-schema, use dialog to add or edit content, support sorting</div>
 
 ---
 
