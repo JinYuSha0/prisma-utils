@@ -56,7 +56,7 @@ function main() {
   }
 
   const source = fs.readFileSync(options.input).toString();
-  const codeMap = transform(source, true);
+  const codeMap = transform(source);
 
   ensureDirectoryExists(options.output);
   Object.keys(codeMap)

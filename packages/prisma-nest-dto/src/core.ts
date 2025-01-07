@@ -1,7 +1,7 @@
-import type { ClassProperty, Decorator, Statement, TSType } from '@babel/types';
-import type { Block, Enum, Field, Model, Property } from '@mrleebo/prisma-ast';
-import type { Context, ProcessedAttribute } from './type.d.ts';
-import { types } from '@babel/core';
+import type { ClassProperty, Decorator, Statement, TSType } from "@babel/types";
+import type { Block, Enum, Field, Model, Property } from "@mrleebo/prisma-ast";
+import type { Context, ProcessedAttribute } from "./type.d.ts";
+import { types } from "@babel/core";
 import {
   annotation,
   annotationEach,
@@ -11,17 +11,17 @@ import {
   isKeyValue,
   isRelationArray,
   optional,
-} from './helper';
+} from "./helper";
 
 function importDeclaration(path: string, ...specifiers: string[]) {
   return types.importDeclaration(
     specifiers.map((specifier) =>
       types.importSpecifier(
         types.identifier(specifier),
-        types.identifier(specifier),
-      ),
+        types.identifier(specifier)
+      )
     ),
-    types.stringLiteral(path),
+    types.stringLiteral(path)
   );
 }
 
@@ -31,27 +31,27 @@ export function exportDeclaration(path: string, ...specifiers: string[]) {
     specifiers.map((specifier) =>
       types.exportSpecifier(
         types.identifier(specifier),
-        types.identifier(specifier),
-      ),
+        types.identifier(specifier)
+      )
     ),
-    types.stringLiteral(path),
+    types.stringLiteral(path)
   );
 }
 
 export function importStatement() {
   return [
-    importDeclaration('@nestjs/swagger', 'ApiProperty'),
-    importDeclaration('class-transformer', 'Expose', 'Type'),
+    importDeclaration("@nestjs/swagger", "ApiProperty"),
+    importDeclaration("class-transformer", "Expose", "Type"),
     importDeclaration(
-      'class-validator',
-      'IsOptional',
-      'IsString',
-      'IsNumber',
-      'IsBoolean',
-      'IsDate',
-      'IsEnum',
-      'IsArray',
-      'ValidateNested',
+      "class-validator",
+      "IsOptional",
+      "IsString",
+      "IsNumber",
+      "IsBoolean",
+      "IsDate",
+      "IsEnum",
+      "IsArray",
+      "ValidateNested"
     ),
   ];
 }
@@ -61,8 +61,8 @@ export function importSplitChunk(ctx: Context, dependencies: string[]) {
   return dependencies.map((dependency) =>
     importDeclaration(
       `./${dependency}.${ctx.blocksType[dependency]}.${ctx.fileSuffix}`,
-      dependency,
-    ),
+      dependency
+    )
   );
 }
 
@@ -71,8 +71,8 @@ export function exportSplitChunk(ctx: Context, dependencies: string[]) {
   return dependencies.map((dependency) =>
     exportDeclaration(
       `./${dependency}.${ctx.blocksType[dependency]}.${ctx.fileSuffix}`,
-      dependency,
-    ),
+      dependency
+    )
   );
 }
 
@@ -83,23 +83,23 @@ export function exportDependencies(ctx: Context, dependencies: string[]) {
       [
         types.exportSpecifier(
           types.identifier(dependency),
-          types.identifier(dependency),
+          types.identifier(dependency)
         ),
       ],
       types.stringLiteral(
-        `./${dependency}.${ctx.blocksType[dependency]}.${ctx.fileSuffix}`,
-      ),
-    ),
+        `./${dependency}.${ctx.blocksType[dependency]}.${ctx.fileSuffix}`
+      )
+    )
   );
 }
 
 function preProcessPropertyAttr(
-  blocksType: Record<string, 'enum' | 'model'>,
-  properties: Model['properties'],
+  blocksType: Record<string, "enum" | "model">,
+  properties: Model["properties"]
 ): Record<string, Partial<ProcessedAttribute>> {
   const result: Record<string, Partial<ProcessedAttribute>> = {};
   properties.forEach((property) => {
-    if (property.type === 'field') {
+    if (property.type === "field") {
       const attr: Partial<ProcessedAttribute> = result[property.name] ?? {};
       if (property.optional) {
         attr.optional = true;
@@ -107,42 +107,42 @@ function preProcessPropertyAttr(
       if (property.array) {
         attr.array = true;
       }
-      if (typeof property.fieldType === 'string') {
+      if (typeof property.fieldType === "string") {
         attr.fieldType = property.fieldType;
       }
       (property.attributes ?? []).forEach((attribute) => {
         switch (attribute.name) {
-          case 'id':
+          case "id":
             attr.id = true;
             break;
-          case 'default':
+          case "default":
             const { value } = attribute.args[0];
             if (isBaseType(value)) {
               attr.default = value;
               attr.defaultAST = defaultToAST(
                 value,
                 property.fieldType,
-                blocksType,
+                blocksType
               );
             } else if (isRelationArray(value)) {
               attr.default = value.args;
               attr.defaultAST = defaultToAST(
                 value.args,
                 property.fieldType,
-                blocksType,
+                blocksType
               );
             } else if (isFunc(value)) {
               attr.optional = true;
             }
             break;
-          case 'relation':
+          case "relation":
             attr.optional = true;
             attribute.args.map((arg) => {
               if (isKeyValue(arg.value)) {
                 const { key, value } = arg.value;
                 if (isRelationArray(value)) {
                   switch (key) {
-                    case 'fields':
+                    case "fields":
                       value.args.forEach((field) => {
                         if (result[field]) {
                           result[field].optional = true;
@@ -151,14 +151,14 @@ function preProcessPropertyAttr(
                         }
                       });
                       break;
-                    case 'references':
+                    case "references":
                       break;
                   }
                 }
               }
             });
             break;
-          case 'updatedAt':
+          case "updatedAt":
             attr.optional = true;
             break;
         }
@@ -170,26 +170,26 @@ function preProcessPropertyAttr(
 }
 
 export function preProcessBlocks(blocks: Block[]) {
-  const blocksType: Record<string, 'enum' | 'model'> = {};
+  const blocksType: Record<string, "enum" | "model"> = {};
   const modelProperties: Record<
     string,
     Record<string, Partial<ProcessedAttribute>>
   > = {};
   blocks.forEach((block) => {
     switch (block.type) {
-      case 'enum':
-        blocksType[block.name] = 'enum';
+      case "enum":
+        blocksType[block.name] = "enum";
         break;
-      case 'model':
-        blocksType[block.name] = 'model';
+      case "model":
+        blocksType[block.name] = "model";
         break;
     }
   });
   blocks.forEach((block) => {
-    if (block.type === 'model') {
+    if (block.type === "model") {
       modelProperties[block.name] = preProcessPropertyAttr(
         blocksType,
-        block.properties,
+        block.properties
       );
     }
   });
@@ -199,9 +199,9 @@ export function preProcessBlocks(blocks: Block[]) {
 export function processBlock(block: Block, ctx: Context): Statement | null {
   const { type } = block;
   switch (type) {
-    case 'enum':
+    case "enum":
       return processEnum(block, ctx);
-    case 'model':
+    case "model":
       return processModel(block, ctx);
     default:
       return null;
@@ -213,14 +213,14 @@ function processEnum(block: Enum, ctx: Context) {
     types.tsEnumDeclaration(
       types.identifier(block.name),
       block.enumerators
-        .filter((item) => item.type === 'enumerator')
+        .filter((item) => item.type === "enumerator")
         .map((enumerator) => {
           return types.tsEnumMember(
             types.identifier(enumerator.name),
-            types.stringLiteral(enumerator.name),
+            types.stringLiteral(enumerator.name)
           );
-        }),
-    ),
+        })
+    )
   );
 }
 
@@ -232,9 +232,9 @@ function processModel(block: Model, ctx: Context) {
       types.classBody(
         block.properties
           .map(processBlockProperty.bind(null, ctx, block.name))
-          .filter((statement): statement is ClassProperty => statement != null),
-      ),
-    ),
+          .filter((statement): statement is ClassProperty => statement != null)
+      )
+    )
   );
 }
 
@@ -245,20 +245,20 @@ function processFieldType(ctx: Context, modelName: string, property: Field) {
     return type;
   }
   switch (fieldType) {
-    case 'String':
-    case 'Bytes':
+    case "String":
+    case "Bytes":
       return arrayType(types.tSStringKeyword());
-    case 'Int':
-    case 'BigInt':
-    case 'Float':
-    case 'Decimal':
+    case "Int":
+    case "BigInt":
+    case "Float":
+    case "Decimal":
       return arrayType(types.tSNumberKeyword());
-    case 'Boolean':
+    case "Boolean":
       return arrayType(types.tsBooleanKeyword());
-    case 'DateTime':
-      return arrayType(types.tsTypeReference(types.identifier('Date')));
+    case "DateTime":
+      return arrayType(types.tsTypeReference(types.identifier("Date")));
     default:
-      if (typeof fieldType === 'string') {
+      if (typeof fieldType === "string") {
         if (!ctx.modelDependencies[modelName]) {
           ctx.modelDependencies[modelName] = new Set();
         }
@@ -272,68 +272,68 @@ function processFieldType(ctx: Context, modelName: string, property: Field) {
 function processSwaggerAnnotation(
   attr: Partial<ProcessedAttribute>,
   isModel: boolean,
-  isEnum: boolean,
+  isEnum: boolean
 ) {
   const objectProperties = [
     ...(!attr.optional
       ? [
           types.objectProperty(
-            types.identifier('required'),
-            types.booleanLiteral(true),
+            types.identifier("required"),
+            types.booleanLiteral(true)
           ),
         ]
       : []),
     ...(attr.array
       ? [
           types.objectProperty(
-            types.identifier('isArray'),
-            types.booleanLiteral(true),
+            types.identifier("isArray"),
+            types.booleanLiteral(true)
           ),
         ]
       : []),
     ...(attr.defaultAST
-      ? [types.objectProperty(types.identifier('default'), attr.defaultAST)]
+      ? [types.objectProperty(types.identifier("default"), attr.defaultAST)]
       : []),
     ...(isModel
       ? [
           types.objectProperty(
-            types.identifier('type'),
+            types.identifier("type"),
             types.arrowFunctionExpression(
               [],
               attr.array
                 ? types.arrayExpression([types.identifier(attr.fieldType)])
-                : types.identifier(attr.fieldType),
-            ),
+                : types.identifier(attr.fieldType)
+            )
           ),
         ]
       : []),
     ...(isEnum
       ? [
           types.objectProperty(
-            types.identifier('enum'),
+            types.identifier("enum"),
             types.arrowFunctionExpression(
               [],
               attr.array
                 ? types.arrayExpression([types.identifier(attr.fieldType)])
-                : types.identifier(attr.fieldType),
-            ),
+                : types.identifier(attr.fieldType)
+            )
           ),
         ]
       : []),
   ];
   if (!objectProperties.length) return null;
-  return annotation('ApiProperty', [types.objectExpression(objectProperties)]);
+  return annotation("ApiProperty", [types.objectExpression(objectProperties)]);
 }
 
 function processAnnotations(
   ctx: Context,
   modelName: string,
-  property: Field,
+  property: Field
 ): Array<Decorator> | null {
   const attr = ctx.modelProperties[modelName][property.name];
-  const isEnum = ctx.blocksType[attr.fieldType] === 'enum';
-  const isModel = ctx.blocksType[attr.fieldType] === 'model';
-  const classValidatorAnnotations = [annotation('Expose')];
+  const isEnum = ctx.blocksType[attr.fieldType] === "enum";
+  const isModel = ctx.blocksType[attr.fieldType] === "model";
+  const classValidatorAnnotations = [annotation("Expose")];
 
   // swagger @ApiProperty
   const swaggerAnnotation = processSwaggerAnnotation(attr, isModel, isEnum);
@@ -342,65 +342,65 @@ function processAnnotations(
   }
 
   if (attr.optional) {
-    classValidatorAnnotations.push(annotation('IsOptional'));
+    classValidatorAnnotations.push(annotation("IsOptional"));
   }
   if (attr.array) {
-    classValidatorAnnotations.push(annotation('IsArray'));
+    classValidatorAnnotations.push(annotation("IsArray"));
     if (isModel) {
       classValidatorAnnotations.push(
-        annotation('ValidateNested', annotationEach(true)),
+        annotation("ValidateNested", annotationEach(true))
       );
     }
   }
   switch (attr.fieldType) {
-    case 'String':
-    case 'Bytes':
+    case "String":
+    case "Bytes":
       classValidatorAnnotations.push(
-        annotation('IsString', annotationEach(attr.array)),
+        annotation("IsString", annotationEach(attr.array))
       );
       break;
-    case 'Int':
-    case 'BigInt':
-    case 'Float':
-    case 'Decimal':
+    case "Int":
+    case "BigInt":
+    case "Float":
+    case "Decimal":
       classValidatorAnnotations.push(
         annotation(
-          'IsNumber',
+          "IsNumber",
           !attr.array
             ? []
-            : [types.objectExpression([]), ...annotationEach(true)],
-        ),
+            : [types.objectExpression([]), ...annotationEach(true)]
+        )
       );
       break;
-    case 'Boolean':
+    case "Boolean":
       classValidatorAnnotations.push(
-        annotation('IsBoolean', annotationEach(attr.array)),
-        annotation('Type', [
-          types.arrowFunctionExpression([], types.identifier('Boolean')),
-        ]),
+        annotation("IsBoolean", annotationEach(attr.array)),
+        annotation("Type", [
+          types.arrowFunctionExpression([], types.identifier("Boolean")),
+        ])
       );
       break;
-    case 'DateTime':
+    case "DateTime":
       classValidatorAnnotations.push(
-        annotation('IsDate', annotationEach(attr.array)),
-        annotation('Type', [
-          types.arrowFunctionExpression([], types.identifier('Date')),
-        ]),
+        annotation("IsDate", annotationEach(attr.array)),
+        annotation("Type", [
+          types.arrowFunctionExpression([], types.identifier("Date")),
+        ])
       );
       break;
     default:
       if (isEnum) {
         classValidatorAnnotations.push(
-          annotation('IsEnum', [
+          annotation("IsEnum", [
             types.identifier(attr.fieldType),
             ...annotationEach(attr.array),
-          ]),
+          ])
         );
       } else if (isModel) {
         classValidatorAnnotations.push(
-          annotation('Type', [
+          annotation("Type", [
             types.arrowFunctionExpression([], types.identifier(attr.fieldType)),
-          ]),
+          ])
         );
       }
       break;
@@ -411,16 +411,16 @@ function processAnnotations(
 function processBlockProperty(
   ctx: Context,
   modelName: string,
-  property: Property,
+  property: Property
 ) {
-  if (property.type === 'field') {
+  if (property.type === "field") {
     const attr = ctx.modelProperties[modelName][property.name];
     const classProperty = types.classProperty(
       types.identifier(property.name),
       attr.defaultAST,
       types.tsTypeAnnotation(processFieldType(ctx, modelName, property)),
       processAnnotations(ctx, modelName, property),
-      false,
+      false
     );
     return optional(attr?.optional, classProperty);
   }

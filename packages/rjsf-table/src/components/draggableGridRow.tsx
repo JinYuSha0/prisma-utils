@@ -1,9 +1,9 @@
-import React, { CSSProperties, useMemo } from 'react';
-import { GridRow, GridRowProps, GridColDef } from '@mui/x-data-grid';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { IconButton } from '@mui/material';
-import DragHandleIcon from '@mui/icons-material/DragHandle';
+import React, { CSSProperties, useMemo } from "react";
+import { GridRow, GridRowProps, GridColDef } from "@mui/x-data-grid";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { IconButton } from "@mui/material";
+import DragHandleIcon from "@mui/icons-material/DragHandle";
 
 export const DraggableGridRow: React.FC<GridRowProps> = (params) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -12,8 +12,8 @@ export const DraggableGridRow: React.FC<GridRowProps> = (params) => {
   const style: CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
   };
 
   const newParams = useMemo(() => {
@@ -25,9 +25,9 @@ export const DraggableGridRow: React.FC<GridRowProps> = (params) => {
     result.visibleColumns[len - 1] = {
       ...actionField,
       renderCell: (
-        args: Parameters<GridColDef['renderCell']>[0] & {
+        args: Parameters<GridColDef["renderCell"]>[0] & {
           children?: React.ReactNode;
-        },
+        }
       ) => {
         args.children = (
           <IconButton

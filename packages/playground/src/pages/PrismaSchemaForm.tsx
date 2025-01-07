@@ -1,16 +1,17 @@
-import "./styles/App.css";
-import "./styles/ResizableLayout.css";
-import "./styles/SampleSplitter.css";
+import "../styles/App.css";
+import "../styles/ResizableLayout.css";
+import "../styles/SampleSplitter.css";
 import type { RJSFSchema } from "@rjsf/utils";
 import { useEffect, useMemo, useState } from "react";
 import Editor from "@monaco-editor/react";
 import Form from "@rjsf/mui";
 import validator from "@rjsf/validator-ajv8";
-import ResizableLayout from "./components/ResizableLayout";
-import ErrorBoundary from "./components/ErrorBoundary";
-import GithubSvg from "./assets/github-mark.svg";
-import { transform } from "prisma-schema-form";
-import { useStorageState, StorageTypes } from "./hooks/use-storage.hook";
+import ResizableLayout from "../components/ResizableLayout";
+import ErrorBoundary from "../components/ErrorBoundary";
+import GithubSvg from "../assets/github-mark.svg";
+import { transform as transformToJsonSchema } from "prisma-schema-form";
+import { initialPrismaSchema } from "../utils/const";
+import { useStorageState, StorageTypes } from "../hooks/use-storage.hook";
 import {
   FormControl,
   InputLabel,
@@ -19,71 +20,11 @@ import {
   Stack,
 } from "@mui/material";
 
-function initialPrismaSchema() {
-  return `// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-enum PostType {
-  News
-  Novel
-}
-
-enum Tag {
-  Art
-  Science
-  Politics
-}
-
-model Author {
-  id       String   @id @default(uuid()) @db.Uuid
-  account  String
-  password String
-  name     String   @default(Tom)
-  age      Int?
-  post     Post[]   @relation("AuthorPosts")
-  review   Review[] @relation("ReviewAuthor")
-}
-
-model Post {
-  id          String   @id @default(uuid()) @db.Uuid
-  type        PostType
-  tags        Tag[]
-  author      Author   @relation("AuthorPosts", fields: [authorId], references: [id], onDelete: Cascade)
-  authorId    String   @db.Uuid
-  description String?
-  content     String
-  createdAt   DateTime @default(now()) @db.Timestamp(6)
-  updatedAt   DateTime @updatedAt @db.Timestamp(6)
-}
-
-model Review {
-  id        String   @id @default(uuid()) @db.Uuid
-  author    Author   @relation("ReviewAuthor", fields: [authorId], references: [id], onDelete: Cascade)
-  authorId  String   @db.Uuid
-  content   String
-  createdAt DateTime @default(now()) @db.Timestamp(6)
-  updatedAt DateTime @updatedAt @db.Timestamp(6)
-}
-`;
-}
-
-function App() {
+function PrismaSchemaForm() {
   const [prismaCode, setPrismaCode] = useStorageState<string>(
-    "prismaCode",
+    "prismaSchemaForm",
     StorageTypes.Local,
-    initialPrismaSchema
+    () => initialPrismaSchema
   );
   const [jsCode, setJsCode] = useState("");
   const [models, setModels] = useState<Record<string, RJSFSchema>>({});
@@ -96,7 +37,7 @@ function App() {
   const onPrismaCodeChange = async (value: string | undefined) => {
     setPrismaCode(value ?? "");
     try {
-      const jsCode = await transform(value ?? "");
+      const jsCode = await transformToJsonSchema(value ?? "");
       setJsCode(jsCode);
     } catch (err) {
       if (err instanceof Error) {
@@ -137,7 +78,7 @@ function App() {
   }, [jsCode]);
   return (
     <ResizableLayout
-      input={
+      leftTop={
         <Editor
           height="100%"
           theme="vs-dark"
@@ -147,7 +88,7 @@ function App() {
           onMount={onMount}
         />
       }
-      output={
+      leftBottom={
         <Editor
           height="100%"
           theme="vs-dark"
@@ -158,7 +99,7 @@ function App() {
           }}
         />
       }
-      form={
+      right={
         <div key={key} className="flex grow form">
           {formSchema ? (
             <div className="form-body">
@@ -198,7 +139,7 @@ function App() {
               </ErrorBoundary>
 
               <a
-                href="https://github.com/JinYuSha0/prisma-schema-form"
+                href="https://github.com/JinYuSha0/prisma-utils/tree/main/packages/prisma-schema-form"
                 target="_blank"
               >
                 <img className="github" src={GithubSvg} />
@@ -213,4 +154,4 @@ function App() {
   );
 }
 
-export default App;
+export default PrismaSchemaForm;

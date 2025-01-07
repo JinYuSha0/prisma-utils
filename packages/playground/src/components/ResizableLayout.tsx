@@ -4,15 +4,15 @@ import { useResizable } from "react-resizable-layout";
 import { cn } from "../utils/cn";
 
 interface ResizableLayoutProps {
-  input: React.ReactNode;
-  output: React.ReactNode;
-  form: React.ReactNode;
+  leftTop: React.ReactNode;
+  leftBottom?: React.ReactNode;
+  right: React.ReactNode;
 }
 
 const ResizableLayout = ({
-  input,
-  output,
-  form,
+  leftTop,
+  leftBottom,
+  right,
 }: ResizableLayoutProps): JSX.Element => {
   const {
     isDragging: isFormDragging,
@@ -37,23 +37,27 @@ const ResizableLayout = ({
     <div className="flex flex-row h-screen bg-dark font-mono color-white overflow-hidden">
       <div className="flex flex-column" style={{ width: FormW }}>
         <div className={cn("flex grow", isCodeDragging && "no-select")}>
-          {input}
+          {leftTop}
         </div>
-        <SampleSplitter
-          dir="horizontal"
-          isDragging={isCodeDragging}
-          {...CodeDragBarProps}
-        />
-        <div
-          className={cn(
-            "flex shrink-0",
-            isCodeDragging && "dragging",
-            isCodeDragging && "no-select"
-          )}
-          style={{ height: CodeH }}
-        >
-          {output}
-        </div>
+        {leftBottom && (
+          <>
+            <SampleSplitter
+              dir="horizontal"
+              isDragging={isCodeDragging}
+              {...CodeDragBarProps}
+            />
+            <div
+              className={cn(
+                "flex shrink-0",
+                isCodeDragging && "dragging",
+                isCodeDragging && "no-select"
+              )}
+              style={{ height: CodeH }}
+            >
+              {leftBottom}
+            </div>
+          </>
+        )}
       </div>
       <SampleSplitter isDragging={isFormDragging} {...FormDragBarProps} />
       <div
@@ -63,7 +67,7 @@ const ResizableLayout = ({
           isFormDragging && "no-select"
         )}
       >
-        {form}
+        {right}
       </div>
     </div>
   );

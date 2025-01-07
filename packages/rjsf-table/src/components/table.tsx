@@ -1,13 +1,13 @@
-import type { RJSFSchema, UiSchema } from '@rjsf/utils';
-import { DataGridProps, GridColDef } from '@mui/x-data-grid';
-import { DataGridWithStyle } from './common';
-import { useMemo } from 'react';
-import { IconButton } from '@mui/material';
-import { Box } from '@mui/system';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import type { RJSFSchema, UiSchema } from "@rjsf/utils";
+import { DataGridProps, GridColDef } from "@mui/x-data-grid";
+import { DataGridWithStyle } from "./common";
+import { useMemo } from "react";
+import { IconButton } from "@mui/material";
+import { Box } from "@mui/system";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
-interface TableProps<T = any> extends Omit<DataGridProps, 'columns' | 'rows'> {
+interface TableProps<T = any> extends Omit<DataGridProps, "columns" | "rows"> {
   uiSchema: UiSchema;
   schema: RJSFSchema;
   rows: T[];
@@ -30,16 +30,16 @@ export const Table: React.FC<TableProps> = (props) => {
     return [
       ...Object.keys(properties).map((key) => ({
         field: key,
-        headerName: uiSchema[key]?.['ui:title'] ?? key,
+        headerName: uiSchema[key]?.["ui:title"] ?? key,
         flex: 1,
-        valueFormatter: uiSchema[key]?.['ui:valueFormatter'],
+        valueFormatter: uiSchema[key]?.["ui:valueFormatter"],
       })),
       ...(onEdit || onDelete
         ? [
             {
-              field: 'action',
-              headerName: '',
-              renderCell: (params: Parameters<GridColDef['renderCell']>[0]) => (
+              field: "action",
+              headerName: "",
+              renderCell: (params: Parameters<GridColDef["renderCell"]>[0]) => (
                 <Box>
                   {onEdit && (
                     <IconButton
@@ -75,7 +75,7 @@ export const Table: React.FC<TableProps> = (props) => {
         },
       },
     }),
-    [initialState],
+    [initialState]
   );
   return (
     <DataGridWithStyle

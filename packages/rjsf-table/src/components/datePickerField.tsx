@@ -1,11 +1,11 @@
-import { DatePicker, DatePickerProps } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { WidgetProps } from '@rjsf/utils';
-import { useCallback, useMemo } from 'react';
-import dayjs from 'dayjs';
+import { DatePicker, DatePickerProps } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { WidgetProps } from "@rjsf/utils";
+import { useCallback, useMemo } from "react";
+import dayjs from "dayjs";
 
-type OnChangeParamters = Parameters<DatePickerProps<dayjs.Dayjs>['onChange']>;
+type OnChangeParamters = Parameters<DatePickerProps<dayjs.Dayjs>["onChange"]>;
 
 export const DatePickerField: React.FC<WidgetProps> = (props) => {
   const {
@@ -20,7 +20,7 @@ export const DatePickerField: React.FC<WidgetProps> = (props) => {
   } = props;
   const value = useMemo(
     () => (originalValue ? dayjs(originalValue) : null),
-    [originalValue],
+    [originalValue]
   );
   const showError = useMemo(() => {
     if (!hideError && rawErrors?.length) return true;
@@ -28,17 +28,17 @@ export const DatePickerField: React.FC<WidgetProps> = (props) => {
   }, [hideError, rawErrors]);
   const innerProps = useMemo(
     () => ({
-      format: schema?.formatTemplate ?? 'YYYY-MM-DD',
+      format: schema?.formatTemplate ?? "YYYY-MM-DD",
       minDate: schema?.formatMinimum ? dayjs(schema.formatMinimum) : undefined,
       maxDate: schema?.formatMaximum ? dayjs(schema.formatMaximum) : undefined,
     }),
-    [schema],
+    [schema]
   );
   const innserOnChange = useCallback(
     (value: OnChangeParamters[0], context: OnChangeParamters[1]) => {
-      onChange(value.format('YYYY-MM-DD'));
+      onChange(value.format("YYYY-MM-DD"));
     },
-    [onChange],
+    [onChange]
   );
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

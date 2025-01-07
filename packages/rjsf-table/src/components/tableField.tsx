@@ -74,6 +74,7 @@ export const TableField: React.FC<WidgetProps> = (props) => {
   const sx = useMemo(
     () => ({
       border: showError ? "1px solid red" : undefined,
+      "--DataGrid-overlayHeight": "0",
     }),
     [showError]
   );

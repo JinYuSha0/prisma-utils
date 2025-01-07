@@ -1,19 +1,19 @@
-import type { RJSFSchema, RJSFValidationError, UiSchema } from '@rjsf/utils';
-import type { FormProps } from '@rjsf/core';
-import { FormWithStyle, validator } from '../components/common';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { Dialog, DialogContent } from '@mui/material';
+import type { RJSFSchema, RJSFValidationError, UiSchema } from "@rjsf/utils";
+import type { FormProps } from "@rjsf/core";
+import { FormWithStyle, validator } from "../components/common";
+import React, { useCallback, useMemo, useRef, useState } from "react";
+import { Dialog, DialogContent } from "@mui/material";
 
 export const useModel = <T extends any>(
   schema: RJSFSchema,
-  uiSchema?: UiSchema,
+  uiSchema?: UiSchema
 ): { dialog: React.ReactNode; onOpen: (editValue?: T) => Promise<T> } => {
   const [open, setOpen] = useState(false);
   const [editValue, setEditValue] = useState(undefined);
   const resolveRef = useRef<(value: any) => void | undefined>(undefined);
   const rejectRef = useRef<(reason: any) => void | undefined>(undefined);
   const onClose = useCallback(() => {
-    rejectRef.current?.(new Error('cancel'));
+    rejectRef.current?.(new Error("cancel"));
     setOpen(false);
     setTimeout(() => {
       setEditValue(undefined);
@@ -31,12 +31,12 @@ export const useModel = <T extends any>(
     return promise;
   }, []);
   const onSubmit = useCallback(
-    (event: Parameters<NonNullable<FormProps['onSubmit']>>[0]) => {
+    (event: Parameters<NonNullable<FormProps["onSubmit"]>>[0]) => {
       resolveRef.current?.(event.formData);
       rejectRef.current = undefined;
       onClose();
     },
-    [],
+    []
   );
   const transformErrors = useCallback(
     (errors: RJSFValidationError[]) =>
@@ -50,7 +50,7 @@ export const useModel = <T extends any>(
         }
         return error;
       }),
-    [schema],
+    [schema]
   );
   const dialog = useMemo(
     () => (
@@ -69,7 +69,7 @@ export const useModel = <T extends any>(
         </DialogContent>
       </Dialog>
     ),
-    [open, editValue, schema, uiSchema, transformErrors],
+    [open, editValue, schema, uiSchema, transformErrors]
   );
   return { dialog, onOpen };
 };

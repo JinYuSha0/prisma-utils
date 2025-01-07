@@ -1,10 +1,10 @@
-import type { Statement } from '@babel/types';
+import type { Statement } from "@babel/types";
 
 type Value = string | number | boolean | Array<Value>;
 
 export type Context = {
   fileSuffix: string;
-  blocksType: Record<string, 'enum' | 'model'>;
+  blocksType: Record<string, "enum" | "model">;
   modelProperties: {
     [modelName: string]: {
       [propertyName: string]: Partial<ProcessedAttribute>;
